@@ -9,16 +9,20 @@
     <h2>Feed Cost Gap Calculator</h2>
 
     <label>Feed Price A:</label>
-    <input id="priceA" type="number" value="8000" /><br /><br />
+    <input id="priceA" type="number" value="8000" step="10" /><br /><br />
 
     <label>Feed Price B:</label>
-    <input id="priceB" type="number" value="8100" /><br /><br />
+    <input id="priceB" type="number" value="8100" step="10" /><br /><br />
 
     <label>FCR A:</label>
-    <input id="fcrA" type="number" step="0.01" value="1.50" /><br /><br />
+    <input id="fcrA" type="number" step="0.01" value="1.50" />
+    <br /><br />
 
-    <label>FCR Gap:</label>
-    <input id="fcrGap" type="number" step="0.01" value="0.02" /><br /><br />
+    <label>FCR B:</label>
+    <input id="fcrB" type="number" step="0.01" value="1.50" /><br /><br />
+
+    <!-- <label>FCR Gap:</label>
+    <input id="fcrGap" type="number" step="0.01" value="0.02" /><br /><br /> -->
 
     <button onclick="runCalculation()">Calculate Efficiency</button>
 
@@ -29,9 +33,11 @@
         feedPriceA,
         feedPriceB,
         fcrA,
-        fcrGap = 0.02,
+        fcrB,
+        // fcrGap = 0.02,
       }) {
-        const fcrB = fcrA - fcrGap;
+        // const fcrB = fcrA - fcrGap;
+        const fcrGap = fcrA - fcrB;
         const feedCostA = feedPriceA * fcrA;
         const feedCostB = feedPriceB * fcrB;
         const difference = feedCostA - feedCostB;
@@ -47,13 +53,15 @@
         const feedPriceA = Number(document.getElementById('priceA').value);
         const feedPriceB = Number(document.getElementById('priceB').value);
         const fcrA = Number(document.getElementById('fcrA').value);
-        const fcrGap = Number(document.getElementById('fcrGap').value) || 0.02;
+        const fcrB = Number(document.getElementById('fcrB').value);
+        // const fcrGap = Number(document.getElementById('fcrGap').value) || 0.02;
 
         const result = calculateFeedCostGap({
           feedPriceA,
           feedPriceB,
           fcrA,
-          fcrGap,
+          fcrB,
+          // fcrGap,
         });
 
         document.getElementById(
