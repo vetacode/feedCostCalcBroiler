@@ -4,12 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Feed Cost Calculator</title>
-    <link rel="style" 
-    <style>
-      button:hover {
-        cursor: pointer;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css"
   </head>
   <body>
     <h2>Feed Cost Gap Calculator</h2>
@@ -25,7 +20,13 @@
     <br /><br />
 
     <label>FCR B:</label>
-    <input id="fcrB" type="number" step="0.01" value="1.50" /><br /><br />
+    <input id="fcrB" type="number" step="0.01" value="1.45" /><br /><br />
+
+    <label>Harvest BW:</label>
+    <input id="harvest" type="number" step="0.1" value="1.5" /><br /><br />
+
+    <label>Birds Population:</label>
+    <input id="birds" type="number" value="100000" step="1000" /><br /><br />
 
     <!-- <label>FCR Gap:</label>
     <input id="fcrGap" type="number" step="0.01" value="0.02" /><br /><br /> -->
@@ -33,6 +34,7 @@
     <button onclick="runCalculation()">Calculate Efficiency</button>
 
     <h1 id="output"></h1>
+    <h1 id="extrapolate"></h1>
 
     <script>
       function calculateFeedCostGap({
@@ -60,6 +62,8 @@
         const feedPriceB = Number(document.getElementById('priceB').value);
         const fcrA = Number(document.getElementById('fcrA').value);
         const fcrB = Number(document.getElementById('fcrB').value);
+        const birdsPop = Number(document.getElementById('birds').value);
+        const harvestBW = Number(document.getElementById('harvest').value);
         // const fcrGap = Number(document.getElementById('fcrGap').value) || 0.02;
 
         const result = calculateFeedCostGap({
@@ -67,12 +71,17 @@
           feedPriceB,
           fcrA,
           fcrB,
+          birdsPop,
+          harvestBW,
           // fcrGap,
         });
 
         document.getElementById(
           'output'
         ).innerText = `You save: Rp ${result.difference} / kg LB`;
+        document.getElementById('extrapolate').innerText = `Total save: Rp ${
+          result.difference * birdsPop * harvestBW
+        } / siklus`;
       }
     </script>
   </body>
